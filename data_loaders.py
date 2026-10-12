@@ -26,7 +26,12 @@ def load_json(filepath):
     """Load a JSON file into a Python object (dict or list).
     filepath is a Path object.
     """
-    pass
+    with open(filepath, "r") as file:
+        data = json.load(file)
+
+    logger.info(f"Loaded JSON file: {filepath}")
+
+    return data
 
 
 def load_yaml(filepath):
