@@ -38,11 +38,27 @@ def load_yaml(filepath):
     """Load a YAML file into a Python object.
     filepath is a Path object.
     """
-    pass
+    with open(filepath, "r") as file:
+        data = yaml.safe_load(file)
+
+    logger.info(f"Loaded YAML file: {filepath}")
+
+    return data
 
 
 def load_data(filepath):
     """Load a file based on its extension.
     filepath is a string, such as 'fixtures/sample.csv'
     """
-    pass
+    path = Path(filepath)
+    extension = path.suffix.lower()
+
+    if extension == ".csv":
+        return load_csv(path)
+    elif extension == ".json":
+        return load_json(path)
+    elif extension == ".yaml":
+        return load_yaml(path)
+    else:
+        logger.error(f"Unsupported file format: {extension}")
+        raise ValueError(f"Unsupported file format: {extension}")
